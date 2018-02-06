@@ -266,6 +266,7 @@ void EpEp::Loop()
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && ep1_beta<1.1&&ep2_beta<1.1
+			   && ep1_beta>0.9&&ep2_beta>0.9
 			   );
       int i_array;
 
@@ -447,8 +448,9 @@ EpEp::EpEp(TTree *tree)
       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288/day288.root/EpEp_ID");
       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new/lepton288new.root/EpEp_ID");
       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_pcut/lepton288new_p.root/EpEp_ID");
-      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_std/dilepton_sep08_KN.root/EpEp_ID");
-
+      //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_std/dilepton_sep08_KN.root/EpEp_ID");
+      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/sep08_lepton_all.root/EpEm_ID");
+      
       //chain->Add("/hera/hades/user/przygoda/PAT2/out/exp/gen1/LEPTONS/lepton656.root/EpEp_ID");
       //chain->Add("/hera/hades/user/przygoda/PAT2/out/exp/gen1/LEPTONS/lepton690.root/EpEp_ID");
       //chain->Add("/hera/hades/user/przygoda/PAT2/out/exp/gen1/LEPTONS/lepton748.root/EpEp_ID");

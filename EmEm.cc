@@ -198,7 +198,8 @@ void EmEm::Loop()
       bool mass_condition=(m_inv_e1e2>10.0 && em1_p <800. && em2_p < 800.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
-			   && em1_beta<1.1&&em1_beta<1.1
+			   && em1_beta<1.1 && em1_beta<1.1
+			   && em1_beta>0.9 && em1_beta>0.9
 			   );
       int i_array;
 
@@ -400,8 +401,8 @@ EmEm::EmEm(TTree *tree)
        //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288/day288.root/EmEm_ID");
        //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new/lepton288new.root/EmEm_ID");
        //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_pcut/lepton288new_p.root/EmEm_ID");
-       chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_std/dilepton_sep08_KN.root/EmEm_ID");
-
+       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_std/dilepton_sep08_KN.root/EmEm_ID");
+       chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/sep08_lepton_all.root/EpEm_ID");
       //chain->Add("/hera/hades/user/przygoda/PAT2/out/exp/gen1/LEPTONS/lepton656.root/EmEm_ID");
       //chain->Add("/hera/hades/user/przygoda/PAT2/out/exp/gen1/LEPTONS/lepton690.root/EmEm_ID");
       //chain->Add("/hera/hades/user/przygoda/PAT2/out/exp/gen1/LEPTONS/lepton748.root/EmEm_ID");
