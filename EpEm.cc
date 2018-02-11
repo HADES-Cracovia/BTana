@@ -154,7 +154,7 @@ void EpEm::Loop()
       //cout << "Poczatek obliczen..." << endl;
 
       //double ang_cut = 0.;
-      double ang_cut = 4.;
+      double ang_cut = 9.;
 
       double close_cut = 4.;
       double nonfit_close_cut = -4.;
@@ -211,7 +211,7 @@ void EpEm::Loop()
       ElectronPositron = Positron && NoLeptonE1 && NoHadronE1  &&  Electron && NoLeptonE2 && NoHadronE2  &&  insideTarget;
 
 
-      if (ElectronPositron && /*(((int)trigbit)&16) &&*/ isBest==1 /* && oa > ang_cut */ ) 
+      if (ElectronPositron && /*(((int)trigbit)&16) &&*/ isBest==1 && oa > ang_cut ) 
       {
 /*        (*tlo)["ep_mom"] = ep_p;
         (*tlo)["ep_theta"] = ep_theta;
@@ -269,7 +269,7 @@ void EpEm::Loop()
 			    //&& ep_btPadsRing>=2
 			    );
       bool bt_condition=(bt_em_condition && bt_ep_condition);
-      bool mass_condition=(m_inv_e1e2>10.0 && ep_p <1000. && em_p < 1000.
+      bool mass_condition=(ep_p>100 && em_p>100 && ep_p<2000. && em_p<2000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em_beta<1.1&&ep_beta<1.1

@@ -116,7 +116,7 @@ void EmEm::Loop()
 
       //cout << "Poczatek obliczen..." << endl;
 
-      double ang_cut = 0.;
+      double ang_cut = 9.;
       //double ang_cut = 4.;
 
       double close_cut = 4.;
@@ -195,7 +195,7 @@ void EmEm::Loop()
 			     //&& em2_btPadsRing>=2
 			     );
       bool bt_condition=(bt_em1_condition && bt_em2_condition);
-      bool mass_condition=(m_inv_e1e2>10.0 && em1_p <800. && em2_p < 800.
+      bool mass_condition=(em1_p>100 && em2_p>100 && em1_p <2000. && em2_p <2000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em1_beta<1.1 && em1_beta<1.1
