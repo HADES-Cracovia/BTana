@@ -229,17 +229,17 @@ int main()
 
    EpEm t;
    t.Loop();
-   EpEp t_back1;
-   EmEm t_back2;
    cout << "START EPEM!" << endl;
-   cout << "START EPEP!" << endl;
+   EpEp t_back1;
    t_back1.Loop();
+   cout << "START EPEP!" << endl;
+   EmEm t_back2;
+   t_back2.Loop();   
    cout << "START EMEM!" << endl;
-   t_back2.Loop();
    cout << "FINALIZING!" << endl;
 
 
-/***************************** F I N A L     C A L C U L A T I O N S ********************/
+   /***************************** F I N A L     C A L C U L A T I O N S ********************/
 
    sig_OK = (TH1F*)signal("sig_OK", sig_all, sig_all_back1, sig_all_back2);
    sig_bt_OK = (TH1F*)signal("sig_bt_OK", sig_all_bt, sig_all_bt_back1, sig_all_bt_back2);

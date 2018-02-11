@@ -269,7 +269,7 @@ void EpEm::Loop()
 			    //&& ep_btPadsRing>=2
 			    );
       bool bt_condition=(bt_em_condition && bt_ep_condition);
-      bool mass_condition=(m_inv_e1e2>10.0 && ep_p <800. && em_p < 800.
+      bool mass_condition=(m_inv_e1e2>10.0 && ep_p <1000. && em_p < 1000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em_beta<1.1&&ep_beta<1.1
@@ -491,7 +491,11 @@ EpEm::EpEm(TTree *tree)
       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288/day288.root/EpEm_ID");
       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new/lepton288new.root/EpEm_ID");
       //chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/288_new_pcut/lepton288new_p.root/EpEm_ID");
-      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/sep08_lepton_all.root/EpEm_ID");
+      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/list5/sum5.root/EpEm_ID");
+      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/list4/sum4.root/EpEm_ID");
+      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/list3/sum3.root/EpEm_ID");
+      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/list2/sum2.root/EpEm_ID");
+      chain->Add("/lustre/nyx/hades/user/knowakow/PNB/PAT/FILES/sep08_all/list1/sum1.root/EpEm_ID");
 
       // -- PE 690 ----------------------------------------
       /*       
