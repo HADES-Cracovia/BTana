@@ -91,24 +91,24 @@ int main()
    tlo->setFile( outFileData );
 /*********************************************************************/
 
-   sig_all = new TH1F("sig_all","sig_all",300,0,1);
+   sig_all = new TH1F("sig_all","sig_all",120,0,1.2);
    sig_all->Sumw2();
-   sig_all_bt = new TH1F("sig_all_bt","sig_all_bt",300,0,1);
+   sig_all_bt = new TH1F("sig_all_bt","sig_all_bt",120,0,1.2);
    sig_all_bt->Sumw2();
-   sig_all_back1 = new TH1F("sig_all_back1","sig_all_back1",300,0,1);
+   sig_all_back1 = new TH1F("sig_all_back1","sig_all_back1",120,0,1.2);
    sig_all_back1->Sumw2();
-   sig_all_back2 = new TH1F("sig_all_back2","sig_all_back2",300,0,1);
+   sig_all_back2 = new TH1F("sig_all_back2","sig_all_back2",120,0,1.2);
    sig_all_back2->Sumw2();
-   sig_all_bt_back1 = new TH1F("sig_all_bt_back1","sig_all_bt_back1",300,0,1);
+   sig_all_bt_back1 = new TH1F("sig_all_bt_back1","sig_all_bt_back1",120,0,1.2);
    sig_all_bt_back1->Sumw2();
-   sig_all_bt_back2 = new TH1F("sig_all_bt_back2","sig_all_bt_back2",300,0,1);
+   sig_all_bt_back2 = new TH1F("sig_all_bt_back2","sig_all_bt_back2",120,0,1.2);
    sig_all_bt_back2->Sumw2();
-   sig_rf_and_bt=new TH1F("sig_rf_and_bt","sig_rf_and_bt",300,0,1);
-   sig_rf_and_bt_OK=new TH1F("sig_rf_and_bt_OK","sig_rf_and_bt_OK",300,0,1);
+   sig_rf_and_bt=new TH1F("sig_rf_and_bt","sig_rf_and_bt",120,0,1.2);
+   sig_rf_and_bt_OK=new TH1F("sig_rf_and_bt_OK","sig_rf_and_bt_OK",120,0,1.2);
    sig_rf_and_bt_OK->Sumw2();
-   sig_rf_and_bt_back1=new TH1F("sig_rf_and_bt_back1","sig_rf_and_bt_back1",300,0,1);
+   sig_rf_and_bt_back1=new TH1F("sig_rf_and_bt_back1","sig_rf_and_bt_back1",120,0,1.2);
    sig_rf_and_bt_back1->Sumw2();
-   sig_rf_and_bt_back2=new TH1F("sig_rf_and_bt_back2","sig_rf_and_bt_back2",300,0,1);
+   sig_rf_and_bt_back2=new TH1F("sig_rf_and_bt_back2","sig_rf_and_bt_back2",120,0,1.2);
    sig_rf_and_bt_back2->Sumw2();
    
    sig_OK = 0;
@@ -122,7 +122,7 @@ int main()
    miss_all_back2->Sumw2();
    miss_OK = 0;
 
-   Float_t xbins[] = {0.000,0.005,0.010,0.015,0.020,0.025,0.030,0.035,0.040,0.045,0.050,0.055,0.070,0.085,0.100,0.120,0.140,0.180,0.230,0.280,0.330,0.400,0.500,0.600,0.800,1.000};
+   Float_t xbins[] = {0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12, 0.13, 0.14, 0.17, 0.2, 0.23, 0.26, 0.29, 0.32, 0.35, 0.38, 0.41, 0.44, 0.47, 0.5, 0.53, 0.56, 0.59, 0.62, 0.65, 0.68, 0.71, 0.74, 0.75, 0.76, 0.77, 0.78, 0.79, 0.8, 0.81, 0.84, 0.87, 0.9, 0.93, 0.96, 0.99, 1.02, 1.05, 1.08, 1.11, 1.14, 1.17, 1.2};
    Int_t nbins = sizeof(xbins)/sizeof(Float_t);
 
    sig_all_var = new TH1F("sig_all_var","sig_all_var",nbins-1,xbins);
@@ -198,17 +198,17 @@ int main()
    em_mom_bt= new TH1F("em_mom_bt","em_mom_bt",250,0,1000);
    ep_mom_bt= new TH1F("ep_mom_bt","ep_mom_bt",250,0,1000);
 
-   pureBT_signal=new TH1F("pureBT_signal","pureBT_signal",300,0,1);
-   pureBT_signal_OK=new TH1F("pureBT_signal_OK","pureBT_signal_OK",300,0,1);
-   pureBT_signal_back1=new TH1F("pureBT_signal_back1","pureBT_signal_back1",300,0,1);
-   pureBT_signal_back2=new TH1F("pureBT_signal_back2","pureBT_signal_back2",300,0,1);
+   pureBT_signal=new TH1F("pureBT_signal","pureBT_signal",120,0,1.2);
+   pureBT_signal_OK=new TH1F("pureBT_signal_OK","pureBT_signal_OK",120,0,1.2);
+   pureBT_signal_back1=new TH1F("pureBT_signal_back1","pureBT_signal_back1",120,0,1.2);
+   pureBT_signal_back2=new TH1F("pureBT_signal_back2","pureBT_signal_back2",120,0,1.2);
 
    pureBT_signal_var=new TH1F("pureBT_signal_var","pureBT_signal_var",nbins-1,xbins);
    pureBT_signal_OK_var=new TH1F("pureBT_signal_OK_var","pureBT_signal_OK_var",nbins-1,xbins);
    pureBT_signal_back1_var=new TH1F("pureBT_signal_back1_var","pureBT_signal_back1_var",nbins-1,xbins);
    pureBT_signal_back2_var=new TH1F("pureBT_signal_back2_var","pureBT_signal_back2_var",nbins-1,xbins);
    
-   sig_sum=new TH1F("sig_sum","sig_sum",300,0,1);
+   sig_sum=new TH1F("sig_sum","sig_sum",120,0,1.2);
    sig_sum_var=new TH1F("sig_sum_var","sig_sum_var",nbins-1,xbins);
    
    pureBT_beta_mom=new TH2F("pureBT_beta_mom","pureBT_beta_mom",50,0.7,1.3,100,0,1000);

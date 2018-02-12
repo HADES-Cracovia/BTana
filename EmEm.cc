@@ -119,7 +119,7 @@ void EmEm::Loop()
       double ang_cut = 9.;
       //double ang_cut = 4.;
 
-      double close_cut = 4.;
+      double close_cut = 9.;
       double nonfit_close_cut = -4.;
       //double close_cut = 4.;
 

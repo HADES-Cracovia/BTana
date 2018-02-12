@@ -156,7 +156,7 @@ void EpEm::Loop()
       //double ang_cut = 0.;
       double ang_cut = 9.;
 
-      double close_cut = 4.;
+      double close_cut = 9.;
       double nonfit_close_cut = -4.;
       //double close_cut = 0.;
       //double nonfit_close_cut = 0.;
