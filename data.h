@@ -17,24 +17,19 @@
 /**************************** global histograms repository ***********************************/
 
 namespace PATData {
-
-  extern TFile         *outFileData;
-
-  extern HNtuple       *tlo;
-
-  extern HFilter       *filter;
-  extern float         EFF, ACC;
-
+  extern TFile *outFileData;
+  extern HNtuple *tlo;
+  extern HFilter *filter;
+  extern float EFF, ACC;
   extern TH1F          *oa_corr;
   extern TH1F          *em_mom, *em_mom_bt, *ep_mom, *ep_mom_bt;
-
   extern TH1F          *SIGNAL, *CB, *SIGNIFICANCE;
   extern TH1F          *sig_all, *sig_all_bt, *sig_all_back1, *sig_all_back2, *sig_OK, *sig_bt_OK, *sig_rf_and_bt;
   extern TH1F          *miss_all, *miss_all_back1, *miss_all_back2, *miss_OK;
-  extern TH1F          *sig_all_var, *sig_all_var_bt, *sig_all_var_back1, *sig_all_bt_back1, *sig_all_var_bt_back1, *sig_all_var_back2, *sig_var_OK, *sig_var_bt_OK, *sig_all_bt_back2, *sig_all_var_bt_back2;
-  extern TH1F          *sig_all_var2, *sig_all_var2_back1, *sig_all_var2_back2, *sig_var2_OK;
-  extern TH1F 			*cos_ep, *cos_em, *cos_sum;
-  extern TH1F 			*cos_ep_back1, *cos_em_back1, *cos_sum_back1;
+  extern TH1F   *sig_all_var, *sig_all_var_bt, *sig_all_var_back1, *sig_all_bt_back1, *sig_all_var_bt_back1, *sig_all_var_back2, *sig_var_OK, *sig_var_bt_OK, *sig_all_bt_back2, *sig_all_var_bt_back2;
+  extern TH1F   *sig_all_var2, *sig_all_var2_back1, *sig_all_var2_back2, *sig_var2_OK;
+  extern TH1F 	*cos_ep, *cos_em, *cos_sum;
+  extern TH1F 	*cos_ep_back1, *cos_em_back1, *cos_sum_back1;
   extern TH1F 			*cos_ep_back2, *cos_em_back2, *cos_sum_back2;
   extern TH1F			*cos_ep_OK, *cos_em_OK, *cos_sum_OK;
   extern TH1F			*cos_ep_cm_OK, *cos_back1_cm, *cos_back2_cm, *cos_ep_cm;
@@ -42,6 +37,8 @@ namespace PATData {
   extern TH1F			*rapidity_140_all, *rapidity_140_back1, *rapidity_140_back2, *rapidity_140_OK;
   extern TH1F			*pt_all, *pt_back1, *pt_back2, *pt_OK;
   extern TH1F			*pt_140_all, *pt_140_back1, *pt_140_back2, *pt_140_OK;
+  extern TH1F      *sig_all_var_back, *sig_all_var_bt_back, *pureBT_signal_back_var;
+  extern TH1F      *sig_to_bg_var, *sig_to_bg_bt_var, *sig_to_bg_pureBT_var;
 
   extern TH1F                   *pureBT_signal, *pureBT_signal_OK, *pureBT_signal_back1, *pureBT_signal_back2;
   extern TH1F          *pureBT_signal_var, *pureBT_signal_OK_var, *pureBT_signal_back1_var, *pureBT_signal_back2_var;
@@ -49,7 +46,8 @@ namespace PATData {
 
   extern TH1F                   *sig_rf_and_bt,*sig_rf_and_bt_OK,*sig_rf_and_bt_back1,*sig_rf_and_bt_back2;
   extern TH1F                   *sig_rf_and_bt_var,*sig_rf_and_bt_OK_var,*sig_rf_and_bt_back1_var,*sig_rf_and_bt_back2_var;
-  extern TH1F                   *sig_sum, *sig_sum_var;  
+  extern TH1F                   *sig_sum, *sig_sum_var;
+  extern TH1F *momentum_spectrum, *momentum_spectrum_bt, *momentum_spectrum_pureBT;
   extern TH1I          *bt_rf_stat, *bt_rf_stat_pi, *bt_rf_stat_back1, *bt_rf_stat_back2, *bt_rf_stat_OK,*bt_rf_stat_pi_back1, *bt_rf_stat_pi_back2, *bt_rf_stat_pi_OK;
 
   extern TH3F      *rf_freedom;

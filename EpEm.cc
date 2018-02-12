@@ -331,7 +331,7 @@ void EpEm::Loop()
 	      sig_rf_and_bt->Fill(m_inv_e1e2/1000., EFF );
 	    }
 	  
-	if(ep_isring>0 && em_isring>0 && mass_condition) { // [1]
+	if(ep_isring>0 && em_isring>0 && mass_condition) { //RF signal
 	    sig_all->Fill(m_inv_e1e2/1000., EFF );
             sig_all_var->Fill(m_inv_e1e2/1000., EFF );
 	    em_mom->Fill(em_p);
@@ -344,6 +344,8 @@ void EpEm::Loop()
 	    rf_f_dphi->Fill((em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::RadToDeg()),em_p);
 	    rf_f_dtheta->Fill((ep_theta-ep_theta_rich),ep_p);
 	    rf_f_dphi->Fill((ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::RadToDeg()),ep_p);
+	    momentum_spectrum->Fill(em_p*(-1));
+	    momentum_spectrum->Fill(ep_p);
          }
 	if(mass_condition && (bt_ep_condition||ep_isring) && (bt_em_condition||em_isring) && !(em_isring && ep_isring))//pure backtracking signal
 	  {
@@ -352,16 +354,18 @@ void EpEm::Loop()
 	    if(ep_isBT!=-1)
 	      {
 		pureBT_beta_mom->Fill( ep_beta_new, ep_p, EFF );
+		momentum_spectrum_pureBT->Fill(ep_p);
 		//pureBT_beta_mom_var->Fill( ep_beta_new, ep_p, EFF );
 	      }
 	    if(em_isBT!=-1)
 	      {
 		pureBT_beta_mom->Fill( em_beta_new, em_p, EFF );
+		momentum_spectrum_pureBT->Fill(em_p*(-1));
 		//pureBT_beta_mom_var->Fill( em_beta_new, em_p, EFF );
 	      }
 	  }
 	if (mass_condition)  
-	  if (bt_condition)
+	  if (bt_condition)//bt signal
 	    {
 	      sig_all_bt->Fill(m_inv_e1e2/1000., EFF );
 	      sig_all_var_bt->Fill(m_inv_e1e2/1000., EFF );
@@ -369,6 +373,8 @@ void EpEm::Loop()
 	      em_beta_mom_bt->Fill( em_beta_new, em_p, EFF );
 	      em_mom_bt->Fill(em_p);
 	      ep_mom_bt->Fill(ep_p);
+	      momentum_spectrum_bt->Fill(em_p*(-1));
+	      momentum_spectrum_bt->Fill(ep_p);
 
 
 	      (*tlo)["em_btChargeRing"] = em_btChargeRing;

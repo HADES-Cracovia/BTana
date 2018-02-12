@@ -133,10 +133,14 @@ int main()
    sig_all_var_back1->Sumw2();
    sig_all_var_back2 = new TH1F("sig_all_var_back2","sig_all_var_back2",nbins-1,xbins);
    sig_all_var_back2->Sumw2();
+   sig_all_var_back = new TH1F("sig_all_var_back","sig_all_var_back",nbins-1,xbins);
+   sig_all_var_back->Sumw2();
    sig_all_var_bt_back1 = new TH1F("sig_all_var_bt_back1","sig_all_var_bt_back1",nbins-1,xbins);
    sig_all_var_bt_back1->Sumw2();
    sig_all_var_bt_back2 = new TH1F("sig_all_var_bt_back2","sig_all_var_bt_back2",nbins-1,xbins);
    sig_all_var_bt_back2->Sumw2();
+   sig_all_var_bt_back = new TH1F("sig_all_var_bt_back","sig_all_var_bt_back",nbins-1,xbins);
+   sig_all_var_bt_back->Sumw2();
    sig_var_bt_OK = 0;
    sig_var_OK = 0;
 
@@ -207,6 +211,7 @@ int main()
    pureBT_signal_OK_var=new TH1F("pureBT_signal_OK_var","pureBT_signal_OK_var",nbins-1,xbins);
    pureBT_signal_back1_var=new TH1F("pureBT_signal_back1_var","pureBT_signal_back1_var",nbins-1,xbins);
    pureBT_signal_back2_var=new TH1F("pureBT_signal_back2_var","pureBT_signal_back2_var",nbins-1,xbins);
+   pureBT_signal_back_var=new TH1F("pureBT_signal_back_var","pureBT_signal_back_var",nbins-1,xbins);
    
    sig_sum=new TH1F("sig_sum","sig_sum",120,0,1.2);
    sig_sum_var=new TH1F("sig_sum_var","sig_sum_var",nbins-1,xbins);
@@ -225,6 +230,14 @@ int main()
    rf_freedom=new TH3F("rf_freedom","rf_freedom:d_theta:d_phi*sin(theta):mom",50,-2,2,50,-2,2,20,0,800);
    rf_f_dtheta=new TH2F("rf_f_dtheta","fr_f_dtheta",50,-4,4,20,0,800);
    rf_f_dphi=new TH2F("rf_f_dphi","fr_f_dphi",50,-4,4,20,0,800);
+
+   momentum_spectrum=new TH1F("momentum_spectrum","leptons from RF momentum",400,-2000,2000);
+   momentum_spectrum_bt=new TH1F("momentum_spectrum_bt","leptons from BT momentum",400,-2000,2000);
+   momentum_spectrum_pureBT=new TH1F("momentum_spectrum_pureBT","leptons from BT profit",400,-2000,2000);
+
+   sig_to_bg_var=new TH1F("sig_to_bg_var","signal to background ratio",nbins-1,xbins);
+   sig_to_bg_bt_var=new TH1F("sig_to_bg_bt_var","signal to background ratio",nbins-1,xbins);
+   sig_to_bg_pureBT_var=new TH1F("sig_to_bg_pureBT_var","signal to background ratio",nbins-1,xbins);
    /**************************** M A I N   P A R T ****************************************/
 
    EpEm t;
@@ -261,6 +274,8 @@ int main()
    sig_var_OK = (TH1F*)signal("sig_var_OK", sig_all_var, sig_all_var_back1, sig_all_var_back2);
    sig_var_bt_OK = (TH1F*)signal("sig_var_bt_OK", sig_all_var_bt, sig_all_var_bt_back1, sig_all_var_bt_back2);
    sig_var2_OK = (TH1F*)signal("sig_var2_OK", sig_all_var2, sig_all_var2_back1, sig_all_var2_back2);
+
+   
    normalize( sig_all_var );
    normalize( sig_all_var_bt );
    
@@ -276,6 +291,15 @@ int main()
    normalize( pureBT_signal_back1_var );
    normalize( pureBT_signal_back2_var );
    normalize( pureBT_signal_OK_var );
+   
+
+   sig_all_var_bt_back->Add(sig_all_var_bt_back1, sig_all_var_bt_back2);
+   sig_all_var_back->Add(sig_all_var_back1, sig_all_var_back2);
+   pureBT_signal_back_var->Add(pureBT_signal_back1_var,pureBT_signal_back2_var);
+
+   sig_to_bg_var->Divide(sig_var_OK,sig_all_var_back);
+   sig_to_bg_bt_var->Divide(sig_var_bt_OK,sig_all_var_bt_back);
+   sig_to_bg_pureBT_var->Divide(pureBT_signal_OK_var,pureBT_signal_back_var);
    
    sig_sum->Add(sig_OK, pureBT_signal_OK,1,1);
    sig_sum_var->Add(sig_var_OK, pureBT_signal_OK_var,1,1);
@@ -382,9 +406,11 @@ int main()
    sig_all_var_bt->Write();
    sig_all_var_back1->Write();
    sig_all_var_back2->Write();
+   sig_all_var_back->Write();
    sig_var_OK->Write();
    sig_all_var_bt_back1->Write();
    sig_all_var_bt_back2->Write();
+   sig_all_var_bt_back->Write();
    sig_var_bt_OK->Write();
    
    SIGNAL->Write();
@@ -450,7 +476,7 @@ int main()
    pureBT_signal_OK_var->Write();
    pureBT_signal_back1_var->Write();
    pureBT_signal_back2_var->Write();
-
+   pureBT_signal_back_var->Write();
    sig_sum->Write();
    sig_sum_var->Write();
 
@@ -466,6 +492,14 @@ int main()
    rf_freedom->Write();
    rf_f_dphi->Write();
    rf_f_dtheta->Write();
+
+   momentum_spectrum->Write();
+   momentum_spectrum_bt->Write();
+   momentum_spectrum_pureBT->Write();
+
+   sig_to_bg_var->Write();
+   sig_to_bg_bt_var->Write();
+   sig_to_bg_pureBT_var->Write();
    
    TCanvas* cSpectra=new TCanvas("cSpectra","cSpectra");
    cSpectra->Divide(2);
@@ -521,26 +555,63 @@ int main()
    sig_sum_var->Draw("same");
 
    TCanvas* cBackground=new TCanvas("cBackground","cBackground");
-   cBackground->Divide(2);
+   cBackground->Divide(3,2);
    cBackground->cd(1);
    gPad->SetLogy();
-   sig_all_var->Draw();
    sig_var_OK->SetLineColor(kBlue+1);
-   sig_var_OK->Draw("same");
+   sig_var_OK->Draw();
+   sig_all_var_back->Draw("same");
    cBackground->cd(2);
-   sig_all_var_bt->Draw();
    sig_var_bt_OK->SetLineColor(kRed+1);
-   sig_var_bt_OK->Draw("same");
+   sig_var_bt_OK->Draw();
+   sig_all_var_bt_back->Draw("same");
+   sig_all_var_bt_back->SetLineColor(kRed);
    gPad->SetLogy();
- 
-   
-   
+   cBackground->cd(3);
+   pureBT_signal_OK_var->Draw();
+   pureBT_signal_back_var->Draw("SAME");
+   gPad->SetLogy();
+   cBackground->cd(4);
+   sig_to_bg_var->Draw();
+   gPad->SetLogy();
+   cBackground->cd(5);
+   sig_to_bg_bt_var->Draw();
+   gPad->SetLogy();
+   cBackground->cd(6);
+   sig_to_bg_pureBT_var->Draw();
+   gPad->SetLogy();
+
+   TCanvas* cBackground_normal= new TCanvas("cBackground_normal","cBackground_normal");
+   cBackground_normal->Divide(2);
+   cBackground_normal->cd(1);
+   gPad->SetLogy();
+   sig_all->Draw();
+   sig_OK->SetLineColor(kBlue+2);
+   sig_OK->Draw("same");
+   cBackground_normal->cd(2);
+   sig_all_bt->Draw();
+   sig_all_bt->SetLineColor(kRed);
+   sig_bt_OK->SetLineColor(kRed+2);
+   sig_bt_OK->Draw("same");
+   gPad->SetLogy();
+
+   TCanvas* cLeptonMom=new TCanvas("cLeptonMom","cLeptonMom");
+   momentum_spectrum->Draw();
+   //momentum_spectrum->SetFillColor(kBlue);
+   momentum_spectrum_bt->Draw("same");
+   momentum_spectrum_bt->SetLineColor(kRed);
+   //momentum_spectrum_bt->SetFillColor(kRed);
+   momentum_spectrum_pureBT->Draw("same");
+   momentum_spectrum_pureBT->SetLineColor(kGreen);
+
+   cBackground_normal->Write();
    cBetaMom->Write();
    cSpectra->Write();
    cMomenta->Write();
    cPureBT->Write();
    cSiggAll->Write();
    cBackground->Write();
+   cLeptonMom->Write();
    
    //Save histopgrams parameters into text file
    

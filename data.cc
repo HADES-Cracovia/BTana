@@ -31,11 +31,12 @@ namespace PATData {
   TH1F          *pureBT_signal, *pureBT_signal_OK, *pureBT_signal_back1, *pureBT_signal_back2;
   TH1F          *pureBT_signal_var, *pureBT_signal_OK_var, *pureBT_signal_back1_var, *pureBT_signal_back2_var;
   TH2F          *ep_beta_mom, *em_beta_mom,*ep_beta_mom_bt, *em_beta_mom_bt, *pureBT_beta_mom;
-
+  TH1F *momentum_spectrum, *momentum_spectrum_bt, *momentum_spectrum_pureBT;
   TH1F          *sig_rf_and_bt,*sig_rf_and_bt_OK,*sig_rf_and_bt_back1,*sig_rf_and_bt_back2;
+  TH1F      *sig_to_bg_var, *sig_to_bg_bt_var, *sig_to_bg_pureBT_var;
   TH1F          *sig_rf_and_bt_var,*sig_rf_and_bt_OK_var,*sig_rf_and_bt_back1_var,*sig_rf_and_bt_back2_var;
   TH1F          *sig_sum,*sig_sum_var;
-
+  TH1F      *sig_all_var_back, *sig_all_var_bt_back, *pureBT_signal_back_var;
   TH1I          *bt_rf_stat, *bt_rf_stat_pi,*bt_rf_stat_back1, *bt_rf_stat_back2, *bt_rf_stat_OK,*bt_rf_stat_pi_back1, *bt_rf_stat_pi_back2, *bt_rf_stat_pi_OK;
   TH3F      *rf_freedom;
   TH2F      *rf_f_dtheta, *rf_f_dphi;
