@@ -135,7 +135,12 @@ namespace PATData {
 
       return ptr;
    }
-
+  double parametrization(double y)
+  {
+    double a=3/4;
+    double b=-30;
+    return a*y +b;
+  }
 
 }
 

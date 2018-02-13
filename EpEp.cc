@@ -262,11 +262,13 @@ void EpEp::Loop()
 			     && ep2_btPadsRing>=2
 			    );
       bool bt_condition=(bt_ep1_condition && bt_ep2_condition);
+      bool pre_shower=(ep1_shw_sum1+ep1_shw_sum2-ep1_shw_sum0) > (parametrization(ep1_p)) && (ep2_shw_sum1+ep2_shw_sum2-ep2_shw_sum0) > (parametrization(ep2_p));
       bool mass_condition=(ep1_p>100 && ep2_p>100 && ep1_p <1000. && ep2_p < 1000.
-			   //&& ep_p>200 && em_p>200
-			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
-			   && ep1_beta<1.1&&ep2_beta<1.1
-			   && ep1_beta>0.9&&ep2_beta>0.9
+			   //&& ep1_p>200 && ep2_p>200
+			   //&&(ep1_system==0?ep1_beta>0.95:ep1_beta>0.92)&&(ep2_system==0?ep2_beta>0.95:ep2_beta>0.92)
+			   && ep1_beta<1.1 && ep2_beta<1.1
+			   && ep1_beta>0.9 && ep2_beta>0.9
+			   && pre_shower
 			   );
       int i_array;
 
@@ -372,7 +374,7 @@ void EpEp::Loop()
 	      //ep1_mom_bt->Fill(ep1_p);
 	      }
 	  /*
-	    (*tlo)["ep_mom"] = ep1_p;
+	    (*tlo)["ep_OAmom"] = ep1_p;
 	    (*tlo)["ep_theta"] = ep1_theta;
 	    (*tlo)["ep_theta_rich"] = ep1_theta_rich;
 	    (*tlo)["ep_phi"] = ep1_phi;

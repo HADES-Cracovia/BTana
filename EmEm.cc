@@ -194,12 +194,13 @@ void EmEm::Loop()
 			     //&& em2_btMaxima>=2
 			     && em2_btPadsRing>=2
 			     );
+      bool pre_shower=(em1_shw_sum1+em1_shw_sum2-em1_shw_sum0) > (parametrization(em1_p)) && (em2_shw_sum1+em2_shw_sum2-em2_shw_sum0) > (parametrization(em2_p));
       bool bt_condition=(bt_em1_condition && bt_em2_condition);
       bool mass_condition=(em1_p>100 && em2_p>100 && em1_p <1000. && em2_p <1000.
-			   //&& ep_p>200 && em_p>200
-			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
-			   && em1_beta<1.1 && em1_beta<1.1
-			   && em1_beta>0.9 && em1_beta>0.9
+			   //&& em_p>200 && em_p>200
+			   //&&(em_system==0?em_beta>0.95:em_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
+			   && em1_beta<1.1 && em2_beta<1.1
+			   && em1_beta>0.9 && em2_beta>0.9
 			   );
       int i_array;
 

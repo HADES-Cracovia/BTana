@@ -611,9 +611,9 @@ int main()
    momentum_spectrum_pureBT->SetLineColor(kGreen);
 
    TCanvas* cp_q=new TCanvas("cp_q","cp_q");
-   TLine *l1=new TLine(0,-50,700,0);
+   TLine *l1=new TLine(0,parametrization(0),1200,parametrization(1200));
    l1->SetLineColor(kRed);
-   l1->SetLineWidth(4);
+   l1->SetLineWidth(3);
    cp_q->Divide(2);
    cp_q->cd(1);
    q_vs_p_leptons_RF->Draw("colz");

@@ -114,7 +114,7 @@ namespace PATData {
    double openingangle(const TVector3& a, const TVector3& b);
    void normalize(TH1* hist);
    TH1* signal(const char* name, TH1* hist, TH1* back1, TH1* back2);
-
+  double parametrization(double y);
 }
 
 /*********************************************************************************************/

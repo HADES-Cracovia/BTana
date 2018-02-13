@@ -269,12 +269,12 @@ void EpEm::Loop()
 			    && ep_btPadsRing>=2
 			    );
       bool bt_condition=(bt_em_condition && bt_ep_condition);
-      bool pre_shower=(ep_shw_sum1+ep_shw_sum2-ep_shw_sum0) > (6/70*ep_p-50) && (em_shw_sum1+em_shw_sum2-em_shw_sum0) > (6/70*em_p-50);								   
+      bool pre_shower=(ep_shw_sum1+ep_shw_sum2-ep_shw_sum0) > (parametrization(ep_p)) && (em_shw_sum1+em_shw_sum2-em_shw_sum0) > (parametrization(em_p));								   
       bool mass_condition=(ep_p>100 && em_p>100 && ep_p<1000. && em_p<1000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
-			   && em_beta<1.1&&ep_beta<1.1
-			   && em_beta>0.9&&ep_beta>0.9
+			   && em_beta<1.1 && ep_beta<1.1
+			   && em_beta>0.9 && ep_beta>0.9
 			   && pre_shower
 			   );
       int i_array=0;
