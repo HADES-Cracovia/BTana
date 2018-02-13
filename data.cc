@@ -40,7 +40,8 @@ namespace PATData {
   TH1I          *bt_rf_stat, *bt_rf_stat_pi,*bt_rf_stat_back1, *bt_rf_stat_back2, *bt_rf_stat_OK,*bt_rf_stat_pi_back1, *bt_rf_stat_pi_back2, *bt_rf_stat_pi_OK;
   TH3F      *rf_freedom;
   TH2F      *rf_f_dtheta, *rf_f_dphi;
-
+  TH2F      *q_vs_p_leptons_RF,*q_vs_p_leptons_BT; 
+  
   TFile *file1_cuts, *file2_cuts;
 
   TCutG *pEpS0, *pEpS1, *pEmS0, *pEmS1;

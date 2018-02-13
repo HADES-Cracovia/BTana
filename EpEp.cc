@@ -183,11 +183,11 @@ void EpEp::Loop()
 
       //cout << "Poczatek obliczen..." << endl;
 
-      double ang_cut =9.;
+      double ang_cut =8.;
       //double ang_cut = 4.;
 	  
-      double close_cut = 9.;
-      double nonfit_close_cut = -4.;
+      double close_cut =8.;
+      double nonfit_close_cut =-8.;
       //double close_cut = 4.;
 
 #ifdef FLANCH
@@ -254,15 +254,15 @@ void EpEp::Loop()
                          ( e1_mass < 5000. && e2_mass < 5000. );
 
       bool bt_ep1_condition=(ep1_isBT!=-1
-			     && ep1_btMaxima>=2
-			     //&& ep1_btPadsRing>=2
+			     //&& ep1_btMaxima>=2
+			     && ep1_btPadsRing>=2
 			    );
       bool bt_ep2_condition=(ep2_isBT!=-1
-			     && ep2_btMaxima>=2
-			     //&& ep2_btPadsRing>=2
+			     //&& ep2_btMaxima>=2
+			     && ep2_btPadsRing>=2
 			    );
       bool bt_condition=(bt_ep1_condition && bt_ep2_condition);
-      bool mass_condition=(ep1_p>100 && ep2_p>100 && ep1_p <2000. && ep2_p < 2000.
+      bool mass_condition=(ep1_p>100 && ep2_p>100 && ep1_p <1000. && ep2_p < 1000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && ep1_beta<1.1&&ep2_beta<1.1

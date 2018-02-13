@@ -8,7 +8,7 @@
 #include <iostream>
 #include "HFilter.h"
 #include <fstream>
-
+#include <TLine.h>
 using namespace std;
 using namespace PATData;
 
@@ -238,6 +238,9 @@ int main()
    sig_to_bg_var=new TH1F("sig_to_bg_var","signal to background ratio",nbins-1,xbins);
    sig_to_bg_bt_var=new TH1F("sig_to_bg_bt_var","signal to background ratio",nbins-1,xbins);
    sig_to_bg_pureBT_var=new TH1F("sig_to_bg_pureBT_var","signal to background ratio",nbins-1,xbins);
+
+   q_vs_p_leptons_RF=new TH2F("q_vs_p_leptons_RF","charge in pre-shower for leptons from RF",600,0,1500,180,-100,200);
+   q_vs_p_leptons_BT=new TH2F("q_vs_p_leptons_BT","charge in pre-shower for leptons from BT",600,0,1500,180,-100,200);
    /**************************** M A I N   P A R T ****************************************/
 
    EpEm t;
@@ -500,6 +503,9 @@ int main()
    sig_to_bg_var->Write();
    sig_to_bg_bt_var->Write();
    sig_to_bg_pureBT_var->Write();
+
+   q_vs_p_leptons_BT->Write();
+   q_vs_p_leptons_RF->Write();
    
    TCanvas* cSpectra=new TCanvas("cSpectra","cSpectra");
    cSpectra->Divide(2);
@@ -604,6 +610,20 @@ int main()
    momentum_spectrum_pureBT->Draw("same");
    momentum_spectrum_pureBT->SetLineColor(kGreen);
 
+   TCanvas* cp_q=new TCanvas("cp_q","cp_q");
+   TLine *l1=new TLine(0,-50,700,0);
+   l1->SetLineColor(kRed);
+   l1->SetLineWidth(4);
+   cp_q->Divide(2);
+   cp_q->cd(1);
+   q_vs_p_leptons_RF->Draw("colz");
+   l1->Draw("same");
+   gPad->SetLogz();
+   cp_q->cd(2);
+   q_vs_p_leptons_BT->Draw("colz");
+   l1->Draw("same");
+   gPad->SetLogz();
+   
    cBackground_normal->Write();
    cBetaMom->Write();
    cSpectra->Write();
@@ -612,7 +632,7 @@ int main()
    cSiggAll->Write();
    cBackground->Write();
    cLeptonMom->Write();
-   
+   cp_q->Write();
    //Save histopgrams parameters into text file
    
    myfile <<"Di-lepton parameters\n";

@@ -49,7 +49,7 @@ namespace PATData {
   extern TH1F                   *sig_sum, *sig_sum_var;
   extern TH1F *momentum_spectrum, *momentum_spectrum_bt, *momentum_spectrum_pureBT;
   extern TH1I          *bt_rf_stat, *bt_rf_stat_pi, *bt_rf_stat_back1, *bt_rf_stat_back2, *bt_rf_stat_OK,*bt_rf_stat_pi_back1, *bt_rf_stat_pi_back2, *bt_rf_stat_pi_OK;
-
+  extern TH2F *q_vs_p_leptons_RF,*q_vs_p_leptons_BT;
   extern TH3F      *rf_freedom;
   extern TH2F      *rf_f_dtheta, *rf_f_dphi;
   extern TFile *file1_cuts, *file2_cuts;

@@ -154,10 +154,10 @@ void EpEm::Loop()
       //cout << "Poczatek obliczen..." << endl;
 
       //double ang_cut = 0.;
-      double ang_cut = 9.;
+      double ang_cut = 8.;
 
-      double close_cut = 9.;
-      double nonfit_close_cut = -4.;
+      double close_cut = 8.;
+      double nonfit_close_cut = -8.;
       //double close_cut = 0.;
       //double nonfit_close_cut = 0.;
       //double close_cut = 4.;
@@ -261,24 +261,36 @@ void EpEm::Loop()
 */
       }
       bool bt_em_condition=(em_isBT!=-1
-			    && em_btMaxima>=2
-			    //&& em_btPadsRing>=2
+			    //&& em_btMaxima>=2
+			    && em_btPadsRing>=2
 			    );
       bool bt_ep_condition=(ep_isBT!=-1
-			    && ep_btMaxima>=2
-			    //&& ep_btPadsRing>=2
+			    //&& ep_btMaxima>=2
+			    && ep_btPadsRing>=2
 			    );
       bool bt_condition=(bt_em_condition && bt_ep_condition);
-      bool mass_condition=(ep_p>100 && em_p>100 && ep_p<2000. && em_p<2000.
+      bool pre_shower=(ep_shw_sum1+ep_shw_sum2-ep_shw_sum0) > (6/70*ep_p-50) && (em_shw_sum1+em_shw_sum2-em_shw_sum0) > (6/70*em_p-50);								   
+      bool mass_condition=(ep_p>100 && em_p>100 && ep_p<1000. && em_p<1000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em_beta<1.1&&ep_beta<1.1
 			   && em_beta>0.9&&ep_beta>0.9
+			   && pre_shower
 			   );
       int i_array=0;
 
       if (ElectronPositron && /*(((int)trigbit)&16) && trigdec>0 &&*/  isBest>=0 && oa > ang_cut /*&& eVertReco_z>-500 */) 
       {
+	
+	    if(bt_ep_condition)
+	      q_vs_p_leptons_BT->Fill(ep_p,ep_shw_sum1+ep_shw_sum2-ep_shw_sum0);
+	    if(bt_em_condition)
+	      q_vs_p_leptons_BT->Fill(em_p,ep_shw_sum1+em_shw_sum2-em_shw_sum0);
+	    if(ep_isring)
+	      q_vs_p_leptons_RF->Fill(ep_p,ep_shw_sum1+ep_shw_sum2-ep_shw_sum0);
+	    if(em_isring)
+	      q_vs_p_leptons_RF->Fill(em_p,em_shw_sum1+em_shw_sum2-em_shw_sum0);
+	   
 	if( mass_condition )
 	  {
 	    if(ep_isring && !bt_ep_condition && !em_isring && bt_em_condition)
@@ -322,7 +334,6 @@ void EpEm::Loop()
 	      bt_rf_stat_pi->Fill(12);
 	    if((bt_ep_condition ||ep_isring)&&(bt_em_condition||em_isring) && !(em_isring && ep_isring) && m_inv_e1e2>140)
 	      bt_rf_stat_pi->Fill(13);
-	      
 	  }
 
 	if(ep_isring>0 && em_isring>0 && mass_condition)
