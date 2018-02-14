@@ -262,7 +262,9 @@ void EpEp::Loop()
 			     && ep2_btPadsRing>=2
 			    );
       bool bt_condition=(bt_ep1_condition && bt_ep2_condition);
-      bool pre_shower=(ep1_shw_sum1+ep1_shw_sum2-ep1_shw_sum0) > (parametrization(ep1_p)) && (ep2_shw_sum1+ep2_shw_sum2-ep2_shw_sum0) > (parametrization(ep2_p));
+      bool pre_shower= (ep1_system==0?(ep1_shw_sum1+ep1_shw_sum2-ep1_shw_sum0) > (parametrization(ep1_p)):true)
+	             &&(ep2_system==0?(ep2_shw_sum1+ep2_shw_sum2-ep2_shw_sum0) > (parametrization(ep2_p)):true);
+      
       bool mass_condition=(ep1_p>100 && ep2_p>100 && ep1_p <1000. && ep2_p < 1000.
 			   //&& ep1_p>200 && ep2_p>200
 			   //&&(ep1_system==0?ep1_beta>0.95:ep1_beta>0.92)&&(ep2_system==0?ep2_beta>0.95:ep2_beta>0.92)

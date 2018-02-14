@@ -194,7 +194,8 @@ void EmEm::Loop()
 			     //&& em2_btMaxima>=2
 			     && em2_btPadsRing>=2
 			     );
-      bool pre_shower=(em1_shw_sum1+em1_shw_sum2-em1_shw_sum0) > (parametrization(em1_p)) && (em2_shw_sum1+em2_shw_sum2-em2_shw_sum0) > (parametrization(em2_p));
+      bool pre_shower= (em1_system==0?(em1_shw_sum1+em1_shw_sum2-em1_shw_sum0) > (parametrization(em1_p)):true)
+	             &&(em2_system==0?(em2_shw_sum1+em2_shw_sum2-em2_shw_sum0) > (parametrization(em2_p)):true);
       bool bt_condition=(bt_em1_condition && bt_em2_condition);
       bool mass_condition=(em1_p>100 && em2_p>100 && em1_p <1000. && em2_p <1000.
 			   //&& em_p>200 && em_p>200
