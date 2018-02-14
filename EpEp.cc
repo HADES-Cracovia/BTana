@@ -311,14 +311,17 @@ void EpEp::Loop()
 	    if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring))
 	      bt_rf_stat_back1->Fill(13);
 	    
-	    if(bt_condition && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back1->Fill(10);
-	    if(ep1_isring && ep2_isring && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back1->Fill(11);
-	    if(bt_condition && ep1_isring && ep2_isring && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back1->Fill(12);
-	    if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring) && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back1->Fill(13);
+	    if(m_inv_e1e2>140 && m_inv_e1e2<700)
+	      {
+		if(bt_condition)
+		  bt_rf_stat_pi_back1->Fill(10);
+		if(ep1_isring && ep2_isring)
+		  bt_rf_stat_pi_back1->Fill(11);
+		if(bt_condition && ep1_isring && ep2_isring)
+		  bt_rf_stat_pi_back1->Fill(12);
+		if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring))
+		  bt_rf_stat_pi_back1->Fill(13);
+	      }
 	  }
 
 	  if(ep1_isring>0 && ep2_isring>0 && mass_condition)

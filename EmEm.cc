@@ -300,15 +300,18 @@ void EmEm::Loop()
 	      bt_rf_stat_back2->Fill(12);
 	    if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring))
 	      bt_rf_stat_back2->Fill(13);
-	    
-	    if(bt_condition && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back2->Fill(10);
-	    if(em1_isring && em2_isring && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back2->Fill(11);
-	    if(bt_condition && em1_isring && em2_isring && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back2->Fill(12);
-	    if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring) && m_inv_e1e2>140)
-	      bt_rf_stat_pi_back2->Fill(13);
+
+	    if( m_inv_e1e2>140 && m_inv_e1e2<700)
+	      {
+		if(bt_condition)
+		  bt_rf_stat_pi_back2->Fill(10);
+		if(em1_isring && em2_isring)
+		  bt_rf_stat_pi_back2->Fill(11);
+		if(bt_condition && em1_isring && em2_isring)
+		  bt_rf_stat_pi_back2->Fill(12);
+		if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring))
+		  bt_rf_stat_pi_back2->Fill(13);
+	      }
 	  }
 	  
 	  if(em1_isring>0 && em2_isring>0 && mass_condition)

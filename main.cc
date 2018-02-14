@@ -491,7 +491,7 @@ int main()
    bt_rf_stat_pi_back1->Write();
    bt_rf_stat_pi_OK->Write();
    bt_rf_stat_OK->Write();
-
+   
    rf_freedom->Write();
    rf_f_dphi->Write();
    rf_f_dtheta->Write();
@@ -623,6 +623,21 @@ int main()
    q_vs_p_leptons_BT->Draw("colz");
    l1->Draw("same");
    gPad->SetLogz();
+
+   TCanvas* cStatistics=new TCanvas("cStatistics","cStatistics");
+   cStatistics->Divide(2);
+   cStatistics->cd(1);
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(10,"BT");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(11,"RF");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(12,"RF && RF");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(13,"Profit");
+   bt_rf_stat_OK->Draw();
+   cStatistics->cd(2);
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(10,"BT");
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(11,"RF");
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(12,"RF && RF");
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(13,"Profit");
+   bt_rf_stat_pi_OK->Draw();
    
    cBackground_normal->Write();
    cBetaMom->Write();

@@ -137,9 +137,9 @@ namespace PATData {
    }
   double parametrization(double y)
   {
-    double a=3/4;
-    double b=-30;
-    return a*y +b;
+    double a=3./40.;
+    double b=-50;
+    return (a*y + b);
   }
 
 }
