@@ -41,6 +41,8 @@ namespace PATData {
   TH3F      *rf_freedom;
   TH2F      *rf_f_dtheta, *rf_f_dphi;
   TH2F      *q_vs_p_leptons_RF,*q_vs_p_leptons_BT; 
+
+  TH2F *phi_theta_rich[9];
   
   TFile *file1_cuts, *file2_cuts;
 
@@ -100,41 +102,48 @@ namespace PATData {
 
    /************************* M E T H O D S *************************************/
 
-   double openingangle(const TLorentzVector& a, const TLorentzVector& b)
-   {
-         return TMath::ACos( (a.Px()*b.Px() + a.Py()*b.Py() +  a.Pz()*b.Pz() ) / ( a.Vect().Mag() * b.Vect().Mag() ) );
-   }
+  double openingangle(const TLorentzVector& a, const TLorentzVector& b)
+  {
+    return TMath::ACos( (a.Px()*b.Px() + a.Py()*b.Py() +  a.Pz()*b.Pz() ) / ( a.Vect().Mag() * b.Vect().Mag() ) );
+  }
 
-   double openingangle(const TVector3& a, const TVector3& b)
-   {
-         return TMath::ACos( (a.Px()*b.Px() + a.Py()*b.Py() +  a.Pz()*b.Pz() ) / ( a.Mag() * b.Mag() ) );
-   }
+  double openingangle(const TVector3& a, const TVector3& b)
+  {
+    return TMath::ACos( (a.Px()*b.Px() + a.Py()*b.Py() +  a.Pz()*b.Pz() ) / ( a.Mag() * b.Mag() ) );
+  }
 
 
-   void normalize(TH1* hist)
-   {
-      for (Int_t j=1; j<hist->GetNbinsX()+1; ++j)
+  void normalize(TH1* hist)
+  {
+    for (Int_t j=1; j<hist->GetNbinsX()+1; ++j)
       {
-         hist->SetBinContent( j, hist->GetBinContent(j) / hist->GetBinWidth(j) );
-//         hist->SetBinError( j, TMath::Sqrt( hist->GetBinContent(j) ) );
-         hist->SetBinError( j, hist->GetBinError(j) / hist->GetBinWidth(j) );
+	hist->SetBinContent( j, hist->GetBinContent(j) / hist->GetBinWidth(j) );
+	//         hist->SetBinError( j, TMath::Sqrt( hist->GetBinContent(j) ) );
+	hist->SetBinError( j, hist->GetBinError(j) / hist->GetBinWidth(j) );
       }
-   }
+  }
 
-   TH1* signal(const char* name, TH1* hist, TH1* back1, TH1* back2)
-   {
-      TH1 *ptr = (TH1*)hist->Clone(name);
-      for (Int_t j=1; j<hist->GetNbinsX()+1; ++j)
+  void format(TH1* hist, double size)
+  {
+    hist->SetMarkerSize(size);
+    hist->SetMarkerColor(hist->GetLineColor());
+    hist->SetMarkerStyle(20);
+  }
+
+  TH1* signal(const char* name, TH1* hist, TH1* back1, TH1* back2)
+  {
+    TH1 *ptr = (TH1*)hist->Clone(name);
+    for (Int_t j=1; j<hist->GetNbinsX()+1; ++j)
       {
-            ptr->SetBinContent(j, hist->GetBinContent(j) - back1->GetBinContent(j) - back2->GetBinContent(j));
-            //ptr->SetBinContent(j, hist->GetBinContent(j) - 2*TMath::Sqrt(back1->GetBinContent(j)*back2->GetBinContent(j)));
-            ptr->SetBinError(j, TMath::Sqrt( hist->GetBinError(j)*hist->GetBinError(j) + 
-                                             back1->GetBinError(j)*back1->GetBinError(j) + 
-                                             back2->GetBinError(j)*back2->GetBinError(j) ));
+	ptr->SetBinContent(j, hist->GetBinContent(j) - back1->GetBinContent(j) - back2->GetBinContent(j));
+	//ptr->SetBinContent(j, hist->GetBinContent(j) - 2*TMath::Sqrt(back1->GetBinContent(j)*back2->GetBinContent(j)));
+	ptr->SetBinError(j, TMath::Sqrt( hist->GetBinError(j)*hist->GetBinError(j) + 
+					 back1->GetBinError(j)*back1->GetBinError(j) + 
+					 back2->GetBinError(j)*back2->GetBinError(j) ));
       }
 
-      return ptr;
-   }
+    return ptr;
+  }
   double parametrization(double y)
   {
     double a=3./40.;

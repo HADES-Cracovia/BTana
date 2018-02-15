@@ -361,6 +361,14 @@ void EpEm::Loop()
 	    rf_f_dphi->Fill((ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::RadToDeg()),ep_p);
 	    momentum_spectrum->Fill(em_p*(-1));
 	    momentum_spectrum->Fill(ep_p);
+	    double p_max=1000.;
+	    for(int h=0;h<9;h++)
+	      {
+		if(ep_p>h/9.*p_max && ep_p<(h+1)/9.*p_max)
+		  phi_theta_rich[h]->Fill((ep_theta-ep_theta_rich),(ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::RadToDeg()));
+		if(em_p>h/9.*p_max && em_p<(h+1)/9.*p_max)
+		  phi_theta_rich[h]->Fill((em_theta-em_theta_rich),(em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::RadToDeg()));
+	      }
          }
 	if(mass_condition && (bt_ep_condition||ep_isring) && (bt_em_condition||em_isring) && !(em_isring && ep_isring))//pure backtracking signal
 	  {

@@ -54,6 +54,8 @@ namespace PATData {
   extern TH2F      *rf_f_dtheta, *rf_f_dphi;
   extern TFile *file1_cuts, *file2_cuts;
 
+  extern TH2F  *phi_theta_rich[9];
+  
   extern TCutG *pEpS0, *pEpS1, *pEmS0, *pEmS1;
   extern TCutG *pEm1S0, *pEm1S1, *pEm2S0, *pEm2S1;
   extern TCutG *pEp1S0, *pEp1S1, *pEp2S0, *pEp2S1;
@@ -110,10 +112,11 @@ namespace PATData {
 
    /************************* M E T H O D S *************************************/
 
-   double openingangle(const TLorentzVector& a, const TLorentzVector& b);
-   double openingangle(const TVector3& a, const TVector3& b);
-   void normalize(TH1* hist);
-   TH1* signal(const char* name, TH1* hist, TH1* back1, TH1* back2);
+  double openingangle(const TLorentzVector& a, const TLorentzVector& b);
+  double openingangle(const TVector3& a, const TVector3& b);
+  void normalize(TH1* hist);
+  void format(TH1* hist,double size=0.9);
+  TH1* signal(const char* name, TH1* hist, TH1* back1, TH1* back2);
   double parametrization(double y);
 }
 

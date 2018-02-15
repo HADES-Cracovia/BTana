@@ -219,13 +219,13 @@ int main()
    pureBT_beta_mom=new TH2F("pureBT_beta_mom","pureBT_beta_mom",50,0.7,1.3,100,0,1000);
 
    bt_rf_stat=new TH1I("bt_rf_stat","Statistic how many events heppend",14,-0.5,13.5);
-   bt_rf_stat_pi=new TH1I("bt_rf_stat_pi","Statistic how many events heppend for mass>140MeV",14,-0.5,13.5);
+   bt_rf_stat_pi=new TH1I("bt_rf_stat_pi","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
    bt_rf_stat_back1=new TH1I("bt_rf_stat_back1","Statistic how many events heppend",14,-0.5,13.5);
-   bt_rf_stat_pi_back1=new TH1I("bt_rf_stat_pi_back1","Statistic how many events heppend for mass>140MeV",14,-0.5,13.5);
+   bt_rf_stat_pi_back1=new TH1I("bt_rf_stat_pi_back1","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
    bt_rf_stat_back2=new TH1I("bt_rf_stat_back2","Statistic how many events heppend",14,-0.5,13.5);
-   bt_rf_stat_pi_back2=new TH1I("bt_rf_stat_pi_back2","Statistic how many events heppend for mass>140MeV",14,-0.5,13.5);
+   bt_rf_stat_pi_back2=new TH1I("bt_rf_stat_pi_back2","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
    bt_rf_stat_OK=new TH1I("bt_rf_stat_OK","Statistic how many events heppend",14,-0.5,13.5);
-   bt_rf_stat_pi_OK=new TH1I("bt_rf_stat_pi_OK","Statistic how many events heppend for mass>140MeV",14,-0.5,13.5);
+   bt_rf_stat_pi_OK=new TH1I("bt_rf_stat_pi_OK","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
 
    rf_freedom=new TH3F("rf_freedom","rf_freedom:d_theta:d_phi*sin(theta):mom",50,-2,2,50,-2,2,20,0,800);
    rf_f_dtheta=new TH2F("rf_f_dtheta","fr_f_dtheta",50,-4,4,20,0,800);
@@ -241,6 +241,13 @@ int main()
 
    q_vs_p_leptons_RF=new TH2F("q_vs_p_leptons_RF","charge in pre-shower for leptons from RF",600,0,1500,180,-100,200);
    q_vs_p_leptons_BT=new TH2F("q_vs_p_leptons_BT","charge in pre-shower for leptons from BT",600,0,1500,180,-100,200);
+
+   char hname[20];
+   for(int h=0;h<9;h++)
+     {
+       sprintf(hname,"phi_theta_rich_%d",h);
+       phi_theta_rich[h]=new TH2F(hname,"cut for RICH-MDC match",50,-2,2,50,-2,2);
+     }
    /**************************** M A I N   P A R T ****************************************/
 
    EpEm t;
@@ -382,6 +389,164 @@ int main()
    outFileData->cd();
 
    // tlo->Write();
+  
+   TCanvas* cSpectra=new TCanvas("cSpectra","cSpectra");
+   cSpectra->Divide(2);
+   cSpectra->cd(1);
+   gPad->SetLogy();
+   sig_all_var->Draw();
+   sig_all_var_bt->SetLineColor(kRed);
+   sig_all_var_bt->Draw("same");
+   cSpectra->cd(2);
+   gPad->SetLogy();
+   sig_var_OK->SetLineColor(kBlue);
+   sig_var_OK->Draw();
+   sig_var_bt_OK->SetLineColor(kRed);
+   sig_var_bt_OK->Draw("SAME");
+
+   TCanvas* cMomenta=new TCanvas("cMomenta","cMomenta");
+   cMomenta->Divide(2);
+   cMomenta->cd(1);
+   ep_mom_bt->SetLineColor(kRed);
+   ep_mom_bt->Draw();
+   ep_mom->Draw("same");
+   cMomenta->cd(2);
+   em_mom_bt->SetLineColor(kRed);
+   em_mom_bt->Draw();
+   em_mom->Draw("same");
+   
+   TCanvas* cBetaMom=new TCanvas("cBetaMom","cBetaMom");
+   cBetaMom->Divide(2,2);
+   cBetaMom->cd(1);
+   ep_beta_mom->Draw("colz");
+   cBetaMom->cd(2);
+   em_beta_mom->Draw("colz");
+   cBetaMom->cd(3);
+   ep_beta_mom_bt->Draw("colz");
+   cBetaMom->cd(4);
+   em_beta_mom_bt->Draw("colz");
+
+   TCanvas* cPureBT=new TCanvas("cPureBT","cPureBT");
+   cPureBT->Divide(2);
+   cPureBT->cd(1);
+   gPad->SetLogy();
+   sig_var_OK->Draw();
+   pureBT_signal_OK_var->SetLineColor(kRed);
+   pureBT_signal_OK_var->Draw("same");
+   cPureBT->cd(2);
+   pureBT_beta_mom->Draw("colz");
+
+   TCanvas* cSiggAll=new TCanvas("cSiggAll","cSiggAll");
+   cSiggAll->SetLogy();
+   sig_var_OK->Draw();
+   format(sig_var_OK);
+   pureBT_signal_OK_var->Draw("same");
+   format(pureBT_signal_OK_var);
+   sig_sum_var->SetLineColor(kGreen);
+   format(sig_sum_var);
+   sig_sum_var->Draw("same");
+
+   TCanvas* cBackground=new TCanvas("cBackground","cBackground");
+   cBackground->Divide(3,2);
+   cBackground->cd(1);
+   gPad->SetLogy();
+   sig_var_OK->SetLineColor(kBlue+1);
+   sig_var_OK->Draw();
+   sig_all_var_back->Draw("same");
+   format(sig_var_OK);
+   format(sig_all_var_back);
+   cBackground->cd(2);
+   sig_var_bt_OK->SetLineColor(kRed+1);
+   sig_var_bt_OK->Draw();
+   sig_all_var_bt_back->Draw("same");
+   sig_all_var_bt_back->SetLineColor(kRed);
+   gPad->SetLogy();
+   cBackground->cd(3);
+   pureBT_signal_OK_var->Draw();
+   pureBT_signal_back_var->Draw("SAME");
+   gPad->SetLogy();
+   cBackground->cd(4);
+   sig_to_bg_var->Draw();
+   gPad->SetLogy();
+   cBackground->cd(5);
+   sig_to_bg_bt_var->Draw();
+   gPad->SetLogy();
+   cBackground->cd(6);
+   sig_to_bg_pureBT_var->Draw();
+   gPad->SetLogy();
+
+   TCanvas* cBackground_normal= new TCanvas("cBackground_normal","cBackground_normal");
+   cBackground_normal->Divide(2);
+   cBackground_normal->cd(1);
+   gPad->SetLogy();
+   sig_all->Draw();
+   sig_OK->SetLineColor(kBlue+2);
+   sig_OK->Draw("same");
+   cBackground_normal->cd(2);
+   sig_all_bt->Draw();
+   sig_all_bt->SetLineColor(kRed);
+   sig_bt_OK->SetLineColor(kRed+2);
+   sig_bt_OK->Draw("same");
+   gPad->SetLogy();
+
+   TCanvas* cLeptonMom=new TCanvas("cLeptonMom","cLeptonMom");
+   momentum_spectrum->Draw();
+   //momentum_spectrum->SetFillColor(kBlue);
+   momentum_spectrum_bt->Draw("same");
+   momentum_spectrum_bt->SetLineColor(kRed);
+   //momentum_spectrum_bt->SetFillColor(kRed);
+   momentum_spectrum_pureBT->Draw("same");
+   momentum_spectrum_pureBT->SetLineColor(kGreen);
+
+   TCanvas* cp_q=new TCanvas("cp_q","cp_q");
+   TLine *l1=new TLine(0,parametrization(0),1200,parametrization(1200));
+   l1->SetLineColor(kRed);
+   l1->SetLineWidth(3);
+   cp_q->Divide(2);
+   cp_q->cd(1);
+   q_vs_p_leptons_RF->Draw("colz");
+   l1->Draw("same");
+   gPad->SetLogz();
+   cp_q->cd(2);
+   q_vs_p_leptons_BT->Draw("colz");
+   l1->Draw("same");
+   gPad->SetLogz();
+
+   TCanvas* cStatistics=new TCanvas("cStatistics","cStatistics");
+   cStatistics->Divide(2);
+   cStatistics->cd(1);
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(11,"BT");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(12,"RF");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(13,"RF && RF");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(14,"Profit");
+   bt_rf_stat_OK->Draw();
+   cStatistics->cd(2);
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(11,"BT");
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(12,"RF");
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(13,"RF && RF");
+   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(14,"Profit");
+   bt_rf_stat_pi_OK->Draw();
+
+   TCanvas* cThetaPhi=new TCanvas("cThetaPhi","cThetaPhi");
+   cThetaPhi->Divide(3,3);
+   
+   for(int hh=0;hh<9;hh++)
+   {
+     cThetaPhi->cd(hh+1);
+     phi_theta_rich[hh]->Draw("colz");
+   }
+   
+   cBackground_normal->Write();
+   cBetaMom->Write();
+   cSpectra->Write();
+   cMomenta->Write();
+   cPureBT->Write();
+   cSiggAll->Write();
+   cBackground->Write();
+   cLeptonMom->Write();
+   cp_q->Write();
+   cStatistics->Write();
+   cThetaPhi->Write();
 
 
    ep_beta_mom->Write();
@@ -506,148 +671,6 @@ int main()
 
    q_vs_p_leptons_BT->Write();
    q_vs_p_leptons_RF->Write();
-   
-   TCanvas* cSpectra=new TCanvas("cSpectra","cSpectra");
-   cSpectra->Divide(2);
-   cSpectra->cd(1);
-   gPad->SetLogy();
-   sig_all_var->Draw();
-   sig_all_var_bt->SetLineColor(kRed);
-   sig_all_var_bt->Draw("same");
-   cSpectra->cd(2);
-   gPad->SetLogy();
-   sig_var_OK->SetLineColor(kBlue);
-   sig_var_OK->Draw();
-   sig_var_bt_OK->SetLineColor(kRed);
-   sig_var_bt_OK->Draw("SAME");
-
-   TCanvas* cMomenta=new TCanvas("cMomenta","cMomenta");
-   cMomenta->Divide(2);
-   cMomenta->cd(1);
-   ep_mom_bt->SetLineColor(kRed);
-   ep_mom_bt->Draw();
-   ep_mom->Draw("same");
-   cMomenta->cd(2);
-   em_mom_bt->SetLineColor(kRed);
-   em_mom_bt->Draw();
-   em_mom->Draw("same");
-   
-   TCanvas* cBetaMom=new TCanvas("cBetaMom","cBetaMom");
-   cBetaMom->Divide(2,2);
-   cBetaMom->cd(1);
-   ep_beta_mom->Draw("colz");
-   cBetaMom->cd(2);
-   em_beta_mom->Draw("colz");
-   cBetaMom->cd(3);
-   ep_beta_mom_bt->Draw("colz");
-   cBetaMom->cd(4);
-   em_beta_mom_bt->Draw("colz");
-
-   TCanvas* cPureBT=new TCanvas("cPureBT","cPureBT");
-   cPureBT->Divide(2);
-   cPureBT->cd(1);
-   gPad->SetLogy();
-   sig_var_OK->Draw();
-   pureBT_signal_OK_var->SetLineColor(kRed);
-   pureBT_signal_OK_var->Draw("same");
-   cPureBT->cd(2);
-   pureBT_beta_mom->Draw("colz");
-
-   TCanvas* cSiggAll=new TCanvas("cSiggAll","cSiggAll");
-   cSiggAll->SetLogy();
-   sig_var_OK->Draw();
-   pureBT_signal_OK_var->Draw("same");
-   sig_sum_var->SetLineColor(kGreen);
-   sig_sum_var->Draw("same");
-
-   TCanvas* cBackground=new TCanvas("cBackground","cBackground");
-   cBackground->Divide(3,2);
-   cBackground->cd(1);
-   gPad->SetLogy();
-   sig_var_OK->SetLineColor(kBlue+1);
-   sig_var_OK->Draw();
-   sig_all_var_back->Draw("same");
-   cBackground->cd(2);
-   sig_var_bt_OK->SetLineColor(kRed+1);
-   sig_var_bt_OK->Draw();
-   sig_all_var_bt_back->Draw("same");
-   sig_all_var_bt_back->SetLineColor(kRed);
-   gPad->SetLogy();
-   cBackground->cd(3);
-   pureBT_signal_OK_var->Draw();
-   pureBT_signal_back_var->Draw("SAME");
-   gPad->SetLogy();
-   cBackground->cd(4);
-   sig_to_bg_var->Draw();
-   gPad->SetLogy();
-   cBackground->cd(5);
-   sig_to_bg_bt_var->Draw();
-   gPad->SetLogy();
-   cBackground->cd(6);
-   sig_to_bg_pureBT_var->Draw();
-   gPad->SetLogy();
-
-   TCanvas* cBackground_normal= new TCanvas("cBackground_normal","cBackground_normal");
-   cBackground_normal->Divide(2);
-   cBackground_normal->cd(1);
-   gPad->SetLogy();
-   sig_all->Draw();
-   sig_OK->SetLineColor(kBlue+2);
-   sig_OK->Draw("same");
-   cBackground_normal->cd(2);
-   sig_all_bt->Draw();
-   sig_all_bt->SetLineColor(kRed);
-   sig_bt_OK->SetLineColor(kRed+2);
-   sig_bt_OK->Draw("same");
-   gPad->SetLogy();
-
-   TCanvas* cLeptonMom=new TCanvas("cLeptonMom","cLeptonMom");
-   momentum_spectrum->Draw();
-   //momentum_spectrum->SetFillColor(kBlue);
-   momentum_spectrum_bt->Draw("same");
-   momentum_spectrum_bt->SetLineColor(kRed);
-   //momentum_spectrum_bt->SetFillColor(kRed);
-   momentum_spectrum_pureBT->Draw("same");
-   momentum_spectrum_pureBT->SetLineColor(kGreen);
-
-   TCanvas* cp_q=new TCanvas("cp_q","cp_q");
-   TLine *l1=new TLine(0,parametrization(0),1200,parametrization(1200));
-   l1->SetLineColor(kRed);
-   l1->SetLineWidth(3);
-   cp_q->Divide(2);
-   cp_q->cd(1);
-   q_vs_p_leptons_RF->Draw("colz");
-   l1->Draw("same");
-   gPad->SetLogz();
-   cp_q->cd(2);
-   q_vs_p_leptons_BT->Draw("colz");
-   l1->Draw("same");
-   gPad->SetLogz();
-
-   TCanvas* cStatistics=new TCanvas("cStatistics","cStatistics");
-   cStatistics->Divide(2);
-   cStatistics->cd(1);
-   bt_rf_stat_OK->GetXaxis()->SetBinLabel(10,"BT");
-   bt_rf_stat_OK->GetXaxis()->SetBinLabel(11,"RF");
-   bt_rf_stat_OK->GetXaxis()->SetBinLabel(12,"RF && RF");
-   bt_rf_stat_OK->GetXaxis()->SetBinLabel(13,"Profit");
-   bt_rf_stat_OK->Draw();
-   cStatistics->cd(2);
-   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(10,"BT");
-   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(11,"RF");
-   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(12,"RF && RF");
-   bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(13,"Profit");
-   bt_rf_stat_pi_OK->Draw();
-   
-   cBackground_normal->Write();
-   cBetaMom->Write();
-   cSpectra->Write();
-   cMomenta->Write();
-   cPureBT->Write();
-   cSiggAll->Write();
-   cBackground->Write();
-   cLeptonMom->Write();
-   cp_q->Write();
    //Save histopgrams parameters into text file
    
    myfile <<"Di-lepton parameters\n";
