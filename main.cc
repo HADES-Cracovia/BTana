@@ -218,13 +218,13 @@ int main()
    
    pureBT_beta_mom=new TH2F("pureBT_beta_mom","pureBT_beta_mom",50,0.7,1.3,100,0,1000);
 
-   bt_rf_stat=new TH1I("bt_rf_stat","Statistic how many events heppend",14,-0.5,13.5);
+   bt_rf_stat=new TH1I("bt_rf_stat","Statistic how many events heppend",23,-0.5,22.5);
    bt_rf_stat_pi=new TH1I("bt_rf_stat_pi","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
-   bt_rf_stat_back1=new TH1I("bt_rf_stat_back1","Statistic how many events heppend",14,-0.5,13.5);
+   bt_rf_stat_back1=new TH1I("bt_rf_stat_back1","Statistic how many events heppend",23,-0.5,22.5);
    bt_rf_stat_pi_back1=new TH1I("bt_rf_stat_pi_back1","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
-   bt_rf_stat_back2=new TH1I("bt_rf_stat_back2","Statistic how many events heppend",14,-0.5,13.5);
+   bt_rf_stat_back2=new TH1I("bt_rf_stat_back2","Statistic how many events heppend",23,-0.5,22.5);
    bt_rf_stat_pi_back2=new TH1I("bt_rf_stat_pi_back2","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
-   bt_rf_stat_OK=new TH1I("bt_rf_stat_OK","Statistic how many events heppend",14,-0.5,13.5);
+   bt_rf_stat_OK=new TH1I("bt_rf_stat_OK","Statistic how many events heppend",23,-0.5,22.5);
    bt_rf_stat_pi_OK=new TH1I("bt_rf_stat_pi_OK","Statistic how many events heppend for 140 MeV<mass<700 MeV ",14,-0.5,13.5);
 
    rf_freedom=new TH3F("rf_freedom","rf_freedom:d_theta:d_phi*sin(theta):mom",50,-2,2,50,-2,2,20,0,800);
@@ -246,7 +246,7 @@ int main()
    for(int h=0;h<9;h++)
      {
        sprintf(hname,"phi_theta_rich_%d",h);
-       phi_theta_rich[h]=new TH2F(hname,"cut for RICH-MDC match",50,-2,2,50,-2,2);
+       phi_theta_rich[h]=new TH2F(hname,"cut for RICH-MDC match",50,-3,3,50,-3,3);
      }
    /**************************** M A I N   P A R T ****************************************/
 
@@ -461,10 +461,14 @@ int main()
    sig_all_var_bt_back->Draw("same");
    sig_all_var_bt_back->SetLineColor(kRed);
    gPad->SetLogy();
+   format(sig_var_bt_OK);
+   format(sig_all_var_bt_back);
    cBackground->cd(3);
    pureBT_signal_OK_var->Draw();
    pureBT_signal_back_var->Draw("SAME");
    gPad->SetLogy();
+   format(pureBT_signal_OK_var);
+   format(pureBT_signal_back_var);
    cBackground->cd(4);
    sig_to_bg_var->Draw();
    gPad->SetLogy();
@@ -499,7 +503,7 @@ int main()
    momentum_spectrum_pureBT->SetLineColor(kGreen);
 
    TCanvas* cp_q=new TCanvas("cp_q","cp_q");
-   TLine *l1=new TLine(0,parametrization(0),1200,parametrization(1200));
+   TLine *l1=new TLine(0,parametrization(0),1400,parametrization(1400));
    l1->SetLineColor(kRed);
    l1->SetLineWidth(3);
    cp_q->Divide(2);
@@ -519,7 +523,17 @@ int main()
    bt_rf_stat_OK->GetXaxis()->SetBinLabel(12,"RF");
    bt_rf_stat_OK->GetXaxis()->SetBinLabel(13,"RF && RF");
    bt_rf_stat_OK->GetXaxis()->SetBinLabel(14,"Profit");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(15,"BT <140 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(16,"RF <140 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(17,"profit <140 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(18,"BT >700 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(19,"RF >700 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(20,"profit >700 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(21,"BT <700 >140 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(22,"RF <700 >140 MeV");
+   bt_rf_stat_OK->GetXaxis()->SetBinLabel(23,"profit <700 MeV >140 MeV");
    bt_rf_stat_OK->Draw();
+   
    cStatistics->cd(2);
    bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(11,"BT");
    bt_rf_stat_pi_OK->GetXaxis()->SetBinLabel(12,"RF");

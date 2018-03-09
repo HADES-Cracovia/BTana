@@ -183,11 +183,11 @@ void EpEp::Loop()
 
       //cout << "Poczatek obliczen..." << endl;
 
-      double ang_cut =8.;
+      double ang_cut =9.;
       //double ang_cut = 4.;
 	  
-      double close_cut =8.;
-      double nonfit_close_cut =-8.;
+      double close_cut =9.;
+      double nonfit_close_cut =-4.;
       //double close_cut = 4.;
 
 #ifdef FLANCH
@@ -233,9 +233,9 @@ void EpEp::Loop()
 
 
       NoLeptonE1 = !((ep1_oa_lept< close_cut&&ep1_oa_lept>0.0) &&ep1_oa_lept>nonfit_close_cut );
-      NoHadronE1 = 1; // !(ep1_oa_hadr< close_cut &&ep1_oa_hadr>nonfit_close_cut );
+      NoHadronE1 = !(ep1_oa_hadr< close_cut &&ep1_oa_hadr>nonfit_close_cut );
       NoLeptonE2 = !((ep2_oa_lept< close_cut&&ep2_oa_lept>0.0) &&ep2_oa_lept>nonfit_close_cut );
-      NoHadronE2 = 1; // !(ep2_oa_hadr< close_cut &&ep2_oa_hadr>nonfit_close_cut );
+      NoHadronE2 = !(ep2_oa_hadr< close_cut &&ep2_oa_hadr>nonfit_close_cut );
       NoHadronE1 = 1;
       NoHadronE2 = 1;
 
@@ -265,7 +265,7 @@ void EpEp::Loop()
       bool pre_shower= (ep1_system==0?(ep1_shw_sum1+ep1_shw_sum2-ep1_shw_sum0) > (parametrization(ep1_p)):true)
 	             &&(ep2_system==0?(ep2_shw_sum1+ep2_shw_sum2-ep2_shw_sum0) > (parametrization(ep2_p)):true);
       
-      bool mass_condition=(ep1_p>100 && ep2_p>100 && ep1_p <1000. && ep2_p < 1000.
+      bool mass_condition=(ep1_p>100 && ep2_p>100 && ep1_p <2000. && ep2_p < 2000.
 			   //&& ep1_p>200 && ep2_p>200
 			   //&&(ep1_system==0?ep1_beta>0.95:ep1_beta>0.92)&&(ep2_system==0?ep2_beta>0.95:ep2_beta>0.92)
 			   && ep1_beta<1.1 && ep2_beta<1.1
@@ -323,6 +323,34 @@ void EpEp::Loop()
 		  bt_rf_stat_pi_back1->Fill(12);
 		if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring))
 		  bt_rf_stat_pi_back1->Fill(13);
+	      }
+	    
+	    if(m_inv_e1e2<140)
+	      {
+		if(bt_condition )
+		  bt_rf_stat_back1->Fill(14);
+		if(ep1_isring && ep2_isring )
+		  bt_rf_stat_back1->Fill(15);
+		if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring))
+		  bt_rf_stat_back1->Fill(16);
+	      }
+	    if(m_inv_e1e2>700)
+	      {
+		if(bt_condition )
+		  bt_rf_stat_back1->Fill(17);
+		if(ep1_isring && ep2_isring)
+		  bt_rf_stat_back1->Fill(18);
+		if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring))
+		  bt_rf_stat_back1->Fill(19);
+	      }
+	    if(m_inv_e1e2>140 && m_inv_e1e2<700)
+	      {
+		if(bt_condition )
+		  bt_rf_stat_back1->Fill(20);
+		if(ep1_isring && ep2_isring)
+		  bt_rf_stat_back1->Fill(21);
+		if((bt_ep1_condition ||ep1_isring)&&(bt_ep2_condition||ep2_isring) && !(ep2_isring && ep1_isring))
+		  bt_rf_stat_back1->Fill(22);
 	      }
 	  }
 
@@ -385,34 +413,34 @@ void EpEp::Loop()
 	    (*tlo)["ep_phi"] = ep1_phi;
 	    (*tlo)["ep_phi_rich"] = ep1_phi_rich;
 	    (*tlo)["ep_beta"] = ep1_beta_new;
-	    (*tlo)["em_mom"] = ep2_p;
-	    (*tlo)["em_theta"] = ep2_theta;
-	    (*tlo)["em_theta_rich"] = ep2_theta_rich;
-	    (*tlo)["em_phi"] = ep2_phi;
-	    (*tlo)["em_phi_rich"] = ep2_phi_rich;
-	    (*tlo)["em_beta"] = ep2_beta_new;
+	    (*tlo)["ep2_mom"] = ep2_p;
+	    (*tlo)["ep2_theta"] = ep2_theta;
+	    (*tlo)["ep2_theta_rich"] = ep2_theta_rich;
+	    (*tlo)["ep2_phi"] = ep2_phi;
+	    (*tlo)["ep2_phi_rich"] = ep2_phi_rich;
+	    (*tlo)["ep2_beta"] = ep2_beta_new;
 	    (*tlo)["oa"] = oa;
 	    (*tlo)["oa_rich"] = oa_rich;
 	    (*tlo)["sig"] = -1;
 	    (*tlo)["ep_m"] = e1_mass;
-	    (*tlo)["em_m"] = e2_mass;
-	    (*tlo)["epem_inv_mass"] = m_inv_e1e2 / 1000.;
-	    (*tlo)["epem_inv_mass2"] = m2_inv_e1e2 / 1000000.;
-	    (*tlo)["epem_miss_mass"] = e1e2_miss->M() / 1000.;
-	    (*tlo)["epem_miss_mass2"] = e1e2_miss->M2() / 1000000.;
-	    (*tlo)["epem_y"] = e1e2->Rapidity();
-	    (*tlo)["epem_pt"] = e1e2->Pt() / 1000.;
+	    (*tlo)["ep2_m"] = e2_mass;
+	    (*tlo)["epep2_inv_mass"] = m_inv_e1e2 / 1000.;
+	    (*tlo)["epep2_inv_mass2"] = m2_inv_e1e2 / 1000000.;
+	    (*tlo)["epep2_miss_mass"] = e1e2_miss->M() / 1000.;
+	    (*tlo)["epep2_miss_mass2"] = e1e2_miss->M2() / 1000000.;
+	    (*tlo)["epep2_y"] = e1e2->Rapidity();
+	    (*tlo)["epep2_pt"] = e1e2->Pt() / 1000.;
 
 	    (*tlo)["ep_rich_amp"] = ep1_rich_amp;
 	    (*tlo)["ep_rich_centr"] = ep1_rich_centr;
 	    (*tlo)["ep_rich_padnum"] = ep1_rich_padnum;
 	    (*tlo)["ep_rich_patmat"] = ep1_rich_patmat;
 	    (*tlo)["ep_rich_houtra"] = ep1_rich_houtra;
-	    (*tlo)["em_rich_amp"] = ep2_rich_amp;
-	    (*tlo)["em_rich_centr"] = ep2_rich_centr;
-	    (*tlo)["em_rich_padnum"] = ep2_rich_padnum;
-	    (*tlo)["em_rich_patmat"] = ep2_rich_patmat;
-	    (*tlo)["em_rich_houtra"] = ep2_rich_houtra;
+	    (*tlo)["ep2_rich_amp"] = ep2_rich_amp;
+	    (*tlo)["ep2_rich_centr"] = ep2_rich_centr;
+	    (*tlo)["ep2_rich_padnum"] = ep2_rich_padnum;
+	    (*tlo)["ep2_rich_patmat"] = ep2_rich_patmat;
+	    (*tlo)["ep2_rich_houtra"] = ep2_rich_houtra;
 
 	    (*tlo)["eVert_x"] = eVert_x;
 	    (*tlo)["eVert_y"] = eVert_y;
@@ -425,8 +453,8 @@ void EpEp::Loop()
 	    (*tlo)["evtPileupStart"] = evtPileupStart;
 	    (*tlo)["ep_isOffVertexClust"] = ep1_isOffVertexClust;
 	    (*tlo)["ep_p_corr_ep"] = ep1_p_corr_ep;
-	    (*tlo)["em_isOffVertexClust"] = ep2_isOffVertexClust;
-	    (*tlo)["em_p_corr_em"] = ep2_p_corr_ep;
+	    (*tlo)["ep2_isOffVertexClust"] = ep2_isOffVertexClust;
+	    (*tlo)["ep2_p_corr_ep2"] = ep2_p_corr_ep;
 	  */
 
 

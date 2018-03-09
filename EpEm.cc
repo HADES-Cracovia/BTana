@@ -154,10 +154,10 @@ void EpEm::Loop()
       //cout << "Poczatek obliczen..." << endl;
 
       //double ang_cut = 0.;
-      double ang_cut = 8.;
+      double ang_cut = 9.;
 
-      double close_cut = 8.;
-      double nonfit_close_cut = -8.;
+      double close_cut = 9.;
+      double nonfit_close_cut = -4.;
       //double close_cut = 0.;
       //double nonfit_close_cut = 0.;
       //double close_cut = 4.;
@@ -192,9 +192,9 @@ void EpEm::Loop()
 
 
       NoLeptonE1 = !((ep_oa_lept< close_cut&&ep_oa_lept>0.0) &&ep_oa_lept>nonfit_close_cut );
-      NoHadronE1 = 1; // !(ep_oa_hadr< close_cut &&ep_oa_hadr>nonfit_close_cut );
+      NoHadronE1 = !(ep_oa_hadr< close_cut &&ep_oa_hadr>nonfit_close_cut );
       NoLeptonE2 = !((em_oa_lept< close_cut&&em_oa_lept>0.0) &&em_oa_lept>nonfit_close_cut );
-      NoHadronE2 = 1; // !(em_oa_hadr< close_cut &&em_oa_hadr>nonfit_close_cut );
+      NoHadronE2 = !(em_oa_hadr< close_cut &&em_oa_hadr>nonfit_close_cut );
       NoHadronE1 = 1;
       NoHadronE2 = 1;
 
@@ -271,7 +271,7 @@ void EpEm::Loop()
       bool bt_condition=(bt_em_condition && bt_ep_condition);
       bool pre_shower= (ep_system==0?(ep_shw_sum1+ep_shw_sum2-ep_shw_sum0) > (parametrization(ep_p)):true)
 	             &&(em_system==0?(em_shw_sum1+em_shw_sum2-em_shw_sum0) > (parametrization(em_p)):true);								   
-      bool mass_condition=(ep_p>100 && em_p>100 && ep_p<1000. && em_p<1000.
+      bool mass_condition=(ep_p>100 && em_p>100 && ep_p<2000. && em_p<2000.
 			   //&& ep_p>200 && em_p>200
 			   //&&(ep_system==0?ep_beta>0.95:ep_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em_beta<1.1 && ep_beta<1.1
@@ -283,13 +283,13 @@ void EpEm::Loop()
       if (ElectronPositron && /*(((int)trigbit)&16) && trigdec>0 &&*/  isBest>=0 && oa > ang_cut /*&& eVertReco_z>-500 */) 
       {
 	
-	    if(bt_ep_condition)
+	    if(bt_ep_condition && ep_system==0)
 	      q_vs_p_leptons_BT->Fill(ep_p,ep_shw_sum1+ep_shw_sum2-ep_shw_sum0);
-	    if(bt_em_condition)
+	    if(bt_em_condition && em_system==0)
 	      q_vs_p_leptons_BT->Fill(em_p,ep_shw_sum1+em_shw_sum2-em_shw_sum0);
-	    if(ep_isring)
+	    if(ep_isring && ep_system==0)
 	      q_vs_p_leptons_RF->Fill(ep_p,ep_shw_sum1+ep_shw_sum2-ep_shw_sum0);
-	    if(em_isring)
+	    if(em_isring && em_system==0)
 	      q_vs_p_leptons_RF->Fill(em_p,em_shw_sum1+em_shw_sum2-em_shw_sum0);
 	   
 	if( mass_condition )
@@ -338,6 +338,33 @@ void EpEm::Loop()
 		if((bt_ep_condition ||ep_isring)&&(bt_em_condition||em_isring) && !(em_isring && ep_isring))
 		  bt_rf_stat_pi->Fill(13);
 	      }
+	    if(m_inv_e1e2<140)
+	      {
+		if(bt_condition )
+		  bt_rf_stat->Fill(14);
+		if(ep_isring && em_isring )
+		  bt_rf_stat->Fill(15);
+		if((bt_ep_condition ||ep_isring)&&(bt_em_condition||em_isring) && !(em_isring && ep_isring))
+		  bt_rf_stat->Fill(16);
+	      }
+	    if(m_inv_e1e2>700)
+	      {
+		if(bt_condition )
+		  bt_rf_stat->Fill(17);
+		if(ep_isring && em_isring)
+		  bt_rf_stat->Fill(18);
+		if((bt_ep_condition ||ep_isring)&&(bt_em_condition||em_isring) && !(em_isring && ep_isring))
+		  bt_rf_stat->Fill(19);
+	      }
+	    if(m_inv_e1e2>140 && m_inv_e1e2<700)
+	      {
+		if(bt_condition )
+		  bt_rf_stat->Fill(20);
+		if(ep_isring && em_isring)
+		  bt_rf_stat->Fill(21);
+		if((bt_ep_condition ||ep_isring)&&(bt_em_condition||em_isring) && !(em_isring && ep_isring))
+		  bt_rf_stat->Fill(22);
+	      }
 	  }
 
 	if(ep_isring>0 && em_isring>0 && mass_condition)
@@ -353,21 +380,21 @@ void EpEm::Loop()
 	    ep_mom->Fill(ep_p);
             ep_beta_mom->Fill( ep_beta_new, ep_p, EFF );
             em_beta_mom->Fill( em_beta_new, em_p, EFF );
-	    rf_freedom->Fill((em_theta-em_theta_rich),(em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::RadToDeg()),em_p);
-	    rf_freedom->Fill((ep_theta-ep_theta_rich),(ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::RadToDeg()),ep_p);
+	    rf_freedom->Fill((em_theta-em_theta_rich),(em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::DegToRad()),em_p);
+	    rf_freedom->Fill((ep_theta-ep_theta_rich),(ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::DegToRad()),ep_p);
 	    rf_f_dtheta->Fill((em_theta-em_theta_rich),em_p);
-	    rf_f_dphi->Fill((em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::RadToDeg()),em_p);
+	    rf_f_dphi->Fill((em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::DegToRad()),em_p);
 	    rf_f_dtheta->Fill((ep_theta-ep_theta_rich),ep_p);
-	    rf_f_dphi->Fill((ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::RadToDeg()),ep_p);
+	    rf_f_dphi->Fill((ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::DegToRad()),ep_p);
 	    momentum_spectrum->Fill(em_p*(-1));
 	    momentum_spectrum->Fill(ep_p);
 	    double p_max=1000.;
 	    for(int h=0;h<9;h++)
 	      {
 		if(ep_p>h/9.*p_max && ep_p<(h+1)/9.*p_max)
-		  phi_theta_rich[h]->Fill((ep_theta-ep_theta_rich),(ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::RadToDeg()));
+		  phi_theta_rich[h]->Fill((ep_theta-ep_theta_rich),(ep_phi-ep_phi_rich)*TMath::Sin(ep_theta*TMath::DegToRad()));
 		if(em_p>h/9.*p_max && em_p<(h+1)/9.*p_max)
-		  phi_theta_rich[h]->Fill((em_theta-em_theta_rich),(em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::RadToDeg()));
+		  phi_theta_rich[h]->Fill((em_theta-em_theta_rich),(em_phi-em_phi_rich)*TMath::Sin(em_theta*TMath::DegToRad()));
 	      }
          }
 	if(mass_condition && (bt_ep_condition||ep_isring) && (bt_em_condition||em_isring) && !(em_isring && ep_isring))//pure backtracking signal

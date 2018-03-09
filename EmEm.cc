@@ -116,11 +116,11 @@ void EmEm::Loop()
 
       //cout << "Poczatek obliczen..." << endl;
 
-      double ang_cut = 8.;
+      double ang_cut = 9.;
       //double ang_cut = 4.;
 
-      double close_cut = 8.;
-      double nonfit_close_cut = -8.;
+      double close_cut = 9.;
+      double nonfit_close_cut = -4.;
       //double close_cut = 4.;
 
 
@@ -167,9 +167,9 @@ void EmEm::Loop()
 
 
       NoLeptonE1 = !((em1_oa_lept< close_cut&&em1_oa_lept>0.0) &&em1_oa_lept>nonfit_close_cut );
-      NoHadronE1 = 1; // !(em1_oa_hadr< close_cut &&em1_oa_hadr>nonfit_close_cut );
+      NoHadronE1 = !(em1_oa_hadr< close_cut &&em1_oa_hadr>nonfit_close_cut );
       NoLeptonE2 = !((em2_oa_lept< close_cut&&em2_oa_lept>0.0) &&em2_oa_lept>nonfit_close_cut );
-      NoHadronE2 = 1; // !(em2_oa_hadr< close_cut &&em2_oa_hadr>nonfit_close_cut );
+      NoHadronE2 = !(em2_oa_hadr< close_cut &&em2_oa_hadr>nonfit_close_cut );
       NoHadronE1 = 1;
       NoHadronE2 = 1;
 
@@ -197,7 +197,7 @@ void EmEm::Loop()
       bool pre_shower= (em1_system==0?(em1_shw_sum1+em1_shw_sum2-em1_shw_sum0) > (parametrization(em1_p)):true)
 	             &&(em2_system==0?(em2_shw_sum1+em2_shw_sum2-em2_shw_sum0) > (parametrization(em2_p)):true);
       bool bt_condition=(bt_em1_condition && bt_em2_condition);
-      bool mass_condition=(em1_p>100 && em2_p>100 && em1_p <1000. && em2_p <1000.
+      bool mass_condition=(em1_p>100 && em2_p>100 && em1_p <2000. && em2_p <2000.
 			   //&& em_p>200 && em_p>200
 			   //&&(em_system==0?em_beta>0.95:em_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em1_beta<1.1 && em2_beta<1.1
@@ -313,6 +313,33 @@ void EmEm::Loop()
 		if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring))
 		  bt_rf_stat_pi_back2->Fill(13);
 	      }
+	    if(m_inv_e1e2<140)
+	      {
+		if(bt_condition )
+		  bt_rf_stat_back2->Fill(14);
+		if(em1_isring && em2_isring )
+		  bt_rf_stat_back2->Fill(15);
+		if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring))
+		  bt_rf_stat_back2->Fill(16);
+	      }
+	    if(m_inv_e1e2>700)
+	      {
+		if(bt_condition )
+		  bt_rf_stat_back2->Fill(17);
+		if(em1_isring && em2_isring)
+		  bt_rf_stat_back2->Fill(18);
+		if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring))
+		  bt_rf_stat_back2->Fill(19);
+	      }
+	    if(m_inv_e1e2>140 && m_inv_e1e2<700)
+	      {
+		if(bt_condition )
+		  bt_rf_stat_back2->Fill(20);
+		if(em1_isring && em2_isring)
+		  bt_rf_stat_back2->Fill(21);
+		if((bt_em1_condition ||em1_isring)&&(bt_em2_condition||em2_isring) && !(em2_isring && em1_isring))
+		  bt_rf_stat_back2->Fill(22);
+	      }
 	  }
 	  
 	  if(em1_isring>0 && em2_isring>0 && mass_condition)
@@ -366,7 +393,7 @@ void EmEm::Loop()
 		//em1_mom_bt->Fill(em1_p);
 	      }
 
-	 if(m_inv_e1e2>140) miss_all_back1->Fill(e1e2_miss->M()/1000., EFF );
+	 if(m_inv_e1e2>140) miss_all_back2->Fill(e1e2_miss->M()/1000., EFF );
 
          
          rapidity_back1->Fill( e1e2->Rapidity() , EFF  );
