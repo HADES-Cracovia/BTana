@@ -202,6 +202,7 @@ void EmEm::Loop()
 			   //&&(em_system==0?em_beta>0.95:em_beta>0.92)&&(em_system==0?em_beta>0.95:em_beta>0.92)
 			   && em1_beta<1.1 && em2_beta<1.1
 			   && em1_beta>0.9 && em2_beta>0.9
+			   && pre_shower
 			   );
       int i_array;
 

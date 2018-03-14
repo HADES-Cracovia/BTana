@@ -148,7 +148,8 @@ namespace PATData {
   {
     double a=3./40.;
     double b=-50;
-    return (a*y + b);
+    //return (a*y + b);
+    return (-40.0-(0.0583*y)+(0.000208333*y*y));
   }
 
 }

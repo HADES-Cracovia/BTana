@@ -503,17 +503,27 @@ int main()
    momentum_spectrum_pureBT->SetLineColor(kGreen);
 
    TCanvas* cp_q=new TCanvas("cp_q","cp_q");
-   TLine *l1=new TLine(0,parametrization(0),1400,parametrization(1400));
-   l1->SetLineColor(kRed);
-   l1->SetLineWidth(3);
+   double linex[1000];
+   double liney[1000];
+   for(int v=0; v<1000;v++)
+     {
+       linex[v]=v;
+       liney[v]=parametrization(v);
+     }
+   TGraph *l2=new TGraph(1000,linex,liney);
+   //TLine *l1=new TLine(0,parametrization(0),1400,parametrization(1400));
+   //l1->SetLineColor(kRed);
+   //l1->SetLineWidth(3);
    cp_q->Divide(2);
    cp_q->cd(1);
    q_vs_p_leptons_RF->Draw("colz");
-   l1->Draw("same");
+   l2->Draw("Lsame");
+   //l1->Draw("same");
    gPad->SetLogz();
    cp_q->cd(2);
    q_vs_p_leptons_BT->Draw("colz");
-   l1->Draw("same");
+   l2->Draw("Lsame");
+   //l1->Draw("same");
    gPad->SetLogz();
 
    TCanvas* cStatistics=new TCanvas("cStatistics","cStatistics");
